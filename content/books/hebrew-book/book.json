@@ -1,0 +1,7 @@
+{
+  "id": "hebrew-book",
+  "title": "כדורגל, מקום וזיכרון",
+  "description": "ספר דוגמה קצר בעברית לצורך MVP של אתר תוכן RTL המבוסס על Markdown.",
+  "language": "he",
+  "direction": "rtl"
+}

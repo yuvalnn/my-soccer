@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">מגרש שכונתי</title>
+  <desc id="desc">איור פשוט של מגרש כדורגל שכונתי ויציע קטן</desc>
+  <rect width="1200" height="700" fill="#efe2d1"/>
+  <rect x="120" y="100" width="960" height="500" rx="24" fill="#7fb069"/>
+  <rect x="160" y="140" width="880" height="420" rx="12" fill="none" stroke="#f8f5f0" stroke-width="8"/>
+  <line x1="600" y1="140" x2="600" y2="560" stroke="#f8f5f0" stroke-width="8"/>
+  <circle cx="600" cy="350" r="70" fill="none" stroke="#f8f5f0" stroke-width="8"/>
+  <rect x="160" y="260" width="70" height="180" fill="none" stroke="#f8f5f0" stroke-width="8"/>
+  <rect x="970" y="260" width="70" height="180" fill="none" stroke="#f8f5f0" stroke-width="8"/>
+  <rect x="280" y="610" width="640" height="50" rx="16" fill="#7f5539"/>
+  <text x="600" y="642" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" fill="#fffdfa">מגרש קהילתי</text>
+</svg>
