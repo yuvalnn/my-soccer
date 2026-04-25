@@ -2,14 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 
-const bookDirectory = path.join(
-  process.cwd(),
-  "content",
-  "books",
-  "hebrew-book"
-);
+const booksDirectory = path.join(process.cwd(), "content", "books");
 
-type BookMetadata = {
+export type BookMetadata = {
   id: string;
   title: string;
   description: string;
@@ -29,11 +24,19 @@ export type Chapter = ChapterFrontmatter & {
   headings: ChapterHeading[];
 };
 
+export type BookWithChapters = BookMetadata & {
+  chapters: Chapter[];
+};
+
 export type ChapterHeading = {
   id: string;
   text: string;
   level: 2 | 3 | 4;
 };
+
+function getBookDirectory(bookId: string) {
+  return path.join(booksDirectory, bookId);
+}
 
 function readMarkdownFile(filePath: string) {
   const fileContents = fs.readFileSync(filePath, "utf8");
@@ -58,14 +61,40 @@ function extractHeadings(content: string): ChapterHeading[] {
   }));
 }
 
-export function getBook() {
-  const filePath = path.join(bookDirectory, "book.json");
+export function getBooks(): BookMetadata[] {
+  const entries = fs
+    .readdirSync(booksDirectory, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory());
+
+  return entries
+    .map((entry) => {
+      const filePath = path.join(booksDirectory, entry.name, "book.json");
+      const fileContents = fs.readFileSync(filePath, "utf8");
+
+      return JSON.parse(fileContents) as BookMetadata;
+    })
+    .sort((a, b) => a.title.localeCompare(b.title, "he"));
+}
+
+export function getBook(bookId: string) {
+  const filePath = path.join(getBookDirectory(bookId), "book.json");
+
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
   const fileContents = fs.readFileSync(filePath, "utf8");
 
   return JSON.parse(fileContents) as BookMetadata;
 }
 
-export function getChapters(): Chapter[] {
+export function getChapters(bookId: string): Chapter[] {
+  const bookDirectory = getBookDirectory(bookId);
+
+  if (!fs.existsSync(bookDirectory)) {
+    return [];
+  }
+
   const entries = fs
     .readdirSync(bookDirectory)
     .filter((fileName) => fileName.endsWith(".md"));
@@ -84,12 +113,25 @@ export function getChapters(): Chapter[] {
   return chapters.sort((a, b) => a.order - b.order);
 }
 
-export function getChapterBySlug(slug: string) {
-  return getChapters().find((chapter) => chapter.slug === slug);
+export function getBookWithChapters(bookId: string): BookWithChapters | null {
+  const book = getBook(bookId);
+
+  if (!book) {
+    return null;
+  }
+
+  return {
+    ...book,
+    chapters: getChapters(bookId)
+  };
 }
 
-export function getAdjacentChapters(currentSlug: string) {
-  const chapters = getChapters();
+export function getChapterBySlug(bookId: string, slug: string) {
+  return getChapters(bookId).find((chapter) => chapter.slug === slug) ?? null;
+}
+
+export function getAdjacentChapters(bookId: string, currentSlug: string) {
+  const chapters = getChapters(bookId);
   const currentIndex = chapters.findIndex((chapter) => chapter.slug === currentSlug);
 
   return {

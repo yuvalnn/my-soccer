@@ -1,7 +1,7 @@
 {
   "id": "hebrew-book",
-  "title": "כדורגל, מקום וזיכרון",
-  "description": "ספר דוגמה קצר בעברית לצורך MVP של אתר תוכן RTL המבוסס על Markdown.",
+  "title": "UEFA Futsal Coaching Manual",
+  "description": "גרסת MVP לאתר תוכן RTL המבוסס על המרה ידנית של פרקי מקור מתוך UEFA Futsal Coaching Manual.",
   "language": "he",
   "direction": "rtl"
 }

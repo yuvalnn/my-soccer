@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { getBook, getChapters } from "@/lib/content";
+import { getBooks } from "@/lib/content";
 
-export default function BookPage() {
-  const book = getBook();
-  const chapters = getChapters();
+export default function BooksPage() {
+  const books = getBooks();
 
   return (
     <main className="shell">
@@ -11,20 +10,19 @@ export default function BookPage() {
         <Link href="/" className="back-link">
           חזרה לדף הבית
         </Link>
-        <h1>{book.title}</h1>
-        <p className="lead">{book.description}</p>
+        <h1>ספרים</h1>
+        <p className="lead">בחר ספר כדי להיכנס לתוכן העניינים ולקריאת הפרקים.</p>
       </div>
 
       <section className="card">
-        <h2>תוכן העניינים</h2>
         <ol className="toc-list">
-          {chapters.map((chapter) => (
-            <li key={chapter.slug} className="toc-item">
-              <Link href={`/book/${chapter.slug}`} className="toc-link">
-                <span>{chapter.title}</span>
-                <span className="toc-order">פרק {chapter.order}</span>
+          {books.map((book) => (
+            <li key={book.id} className="toc-item">
+              <Link href={`/book/${book.id}`} className="toc-link">
+                <span>{book.title}</span>
+                <span className="toc-order">ספר</span>
               </Link>
-              <p className="toc-summary">{chapter.summary}</p>
+              <p className="toc-summary">{book.description}</p>
             </li>
           ))}
         </ol>

@@ -2,16 +2,23 @@ import Link from "next/link";
 import { getAdjacentChapters } from "@/lib/content";
 
 type ChapterNavigationProps = {
+  bookId: string;
   currentSlug: string;
 };
 
-export function ChapterNavigation({ currentSlug }: ChapterNavigationProps) {
-  const { previousChapter, nextChapter } = getAdjacentChapters(currentSlug);
+export function ChapterNavigation({
+  bookId,
+  currentSlug
+}: ChapterNavigationProps) {
+  const { previousChapter, nextChapter } = getAdjacentChapters(bookId, currentSlug);
 
   return (
     <nav className="chapter-nav" aria-label="ניווט בין פרקים">
       {nextChapter ? (
-        <Link href={`/book/${nextChapter.slug}`} className="chapter-nav-link">
+        <Link
+          href={`/book/${bookId}/${nextChapter.slug}`}
+          className="chapter-nav-link"
+        >
           <span className="chapter-nav-label">הפרק הבא</span>
           <span>{nextChapter.title}</span>
         </Link>
@@ -21,7 +28,7 @@ export function ChapterNavigation({ currentSlug }: ChapterNavigationProps) {
 
       {previousChapter ? (
         <Link
-          href={`/book/${previousChapter.slug}`}
+          href={`/book/${bookId}/${previousChapter.slug}`}
           className="chapter-nav-link"
         >
           <span className="chapter-nav-label">הפרק הקודם</span>

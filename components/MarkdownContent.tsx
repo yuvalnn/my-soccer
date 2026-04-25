@@ -70,7 +70,9 @@ export function MarkdownContent({ content, headings }: MarkdownContentProps) {
             <blockquote dir="auto">{children}</blockquote>
           ),
           p: ({ children }) => <p dir="auto">{children}</p>,
-          li: ({ children }) => <li dir="auto">{children}</li>,
+          ul: ({ children }) => <ul dir="rtl">{children}</ul>,
+          ol: ({ children }) => <ol dir="rtl">{children}</ol>,
+          li: ({ children }) => <li dir="rtl">{children}</li>,
           code: ({ children }) => (
             <code dir="ltr" className="inline-ltr">
               {children}

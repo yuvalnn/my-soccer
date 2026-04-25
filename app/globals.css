@@ -192,6 +192,7 @@ img {
   margin-bottom: 1.25rem;
   line-height: 1.25;
   font-size: clamp(1.8rem, 4vw, 2.4rem);
+  text-align: right;
 }
 
 .prose h2,
@@ -200,6 +201,7 @@ img {
   line-height: 1.4;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
+  text-align: right;
 }
 
 .prose h2 {
@@ -217,6 +219,7 @@ img {
 .prose p {
   margin: 0 0 1.15rem;
   max-width: 68ch;
+  text-align: right;
 }
 
 .prose figure {
@@ -227,6 +230,7 @@ img {
   margin-top: 0.75rem;
   color: var(--muted);
   font-size: 0.95rem;
+  text-align: right;
 }
 
 .prose blockquote {
@@ -235,6 +239,7 @@ img {
   border-inline-start: 4px solid var(--accent);
   background: #faf4eb;
   color: var(--muted);
+  text-align: right;
 }
 
 .prose blockquote p:last-child {
@@ -253,12 +258,18 @@ img {
 
 .prose ul,
 .prose ol {
-  padding-inline-start: 1.4rem;
+  direction: rtl;
+  unicode-bidi: isolate;
+  padding-inline-start: 0;
+  padding-inline-end: 1.4rem;
   margin: 0 0 1.25rem;
 }
 
 .prose li {
+  direction: rtl;
+  unicode-bidi: isolate;
   margin-bottom: 0.4rem;
+  text-align: right;
 }
 
 .inline-ltr {
