@@ -21,6 +21,15 @@ function getNodeText(children: ReactNode) {
     : String(children).trim();
 }
 
+function withBasePath(url: string) {
+  if (!url.startsWith("/")) {
+    return url;
+  }
+
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  return `${basePath}${url}`;
+}
+
 export function MarkdownContent({ content, headings }: MarkdownContentProps) {
   return (
     <div className="prose">
@@ -79,13 +88,13 @@ export function MarkdownContent({ content, headings }: MarkdownContentProps) {
             </code>
           ),
           img: ({ src, alt }) => {
-            if (!src) {
+            if (!src || typeof src !== "string") {
               return null;
             }
 
             return (
               <figure>
-                <img src={src} alt={alt ?? ""} />
+                <img src={withBasePath(src)} alt={alt ?? ""} />
                 {alt ? <figcaption>{alt}</figcaption> : null}
               </figure>
             );

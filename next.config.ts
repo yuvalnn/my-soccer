@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   basePath: `/${repoName}`,
   assetPrefix: `/${repoName}/`,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: `/${repoName}`,
+  },
 };
 
 export default nextConfig;
